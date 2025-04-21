@@ -37,7 +37,7 @@ class _Factory extends VmFactory<AppState, HomePage, _ViewModel> {
   @override
   _ViewModel fromStore() => _ViewModel(
     pokemons: state.pokemons,
-    isLoading: state.wait.isWaitingFor("loading"),
+    isLoading: state.wait.isWaiting("loading"),
   );
 }
 
