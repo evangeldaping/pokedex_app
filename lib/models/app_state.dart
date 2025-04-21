@@ -1,22 +1,26 @@
-import '../models/pokemon.dart';
+import 'package:async_redux/async_redux.dart';
+import 'pokemon.dart';
 
 class AppState {
   final List<Pokemon> pokemons;
-  final bool isLoading;
+  final Wait wait;
 
   AppState({
     required this.pokemons,
-    required this.isLoading,
+    required this.wait,
   });
 
   AppState.initialState()
       : pokemons = [],
-        isLoading = false;
+        wait = Wait();
 
-  AppState copy({List<Pokemon>? pokemons, bool? isLoading}) {
+  AppState copy({List<Pokemon>? pokemons, Wait? wait}) {
     return AppState(
       pokemons: pokemons ?? this.pokemons,
-      isLoading: isLoading ?? this.isLoading,
+      wait: wait ?? this.wait,
     );
   }
+
+  @override
+  String toString() => 'AppState(pokemons: ${pokemons.length}, wait: $wait)';
 }
