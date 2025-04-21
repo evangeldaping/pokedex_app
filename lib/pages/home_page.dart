@@ -33,13 +33,14 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _Factory extends VmFactory<AppState, HomePage> {
+class _Factory extends VmFactory<AppState, HomePage, _ViewModel> {
   @override
   _ViewModel fromStore() => _ViewModel(
     pokemons: state.pokemons,
     isLoading: state.wait.isWaitingFor("loading"),
   );
 }
+
 
 class _ViewModel extends Vm {
   final List<Pokemon> pokemons;
