@@ -5,6 +5,8 @@ import '../models/pokemon.dart';
 import '../store/actions/fetch_pokemons_action.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
