@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
-      model: Model(),
+      vm: () => _Factory(),
       onInit: (store) => store.dispatch(FetchPokemonsAction()),
       builder: (context, vm) {
         return Scaffold(
@@ -33,20 +33,20 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _ViewModel extends BaseModel<AppState> {
-  late List<Pokemon> pokemons;
-  late bool isLoading;
-
-  _ViewModel();
-
-  _ViewModel.build({
-    required this.pokemons,
-    required this.isLoading,
-  });
-
+class _Factory extends VmFactory<AppState, HomePage> {
   @override
-  _ViewModel fromStore() => _ViewModel.build(
+  _ViewModel fromStore() => _ViewModel(
     pokemons: state.pokemons,
     isLoading: state.wait.isWaitingFor("loading"),
   );
+}
+
+class _ViewModel extends Vm {
+  final List<Pokemon> pokemons;
+  final bool isLoading;
+
+  _ViewModel({
+    required this.pokemons,
+    required this.isLoading,
+  });
 }
