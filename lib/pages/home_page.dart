@@ -19,15 +19,20 @@ class HomePage extends StatelessWidget {
           ),
           body: vm.isLoading
               ? Center(child: CircularProgressIndicator())
-              : ListView.builder(
-            itemCount: vm.pokemons.length,
-            itemBuilder: (context, index) {
-              final pokemon = vm.pokemons[index];
-              return ListTile(
-                title: Text(pokemon.name),
-                leading: CircleAvatar(child: Text("${index + 1}")),
-              );
+              : RefreshIndicator(
+            onRefresh: () async {
+              StoreProvider.dispatch<AppState>(context, FetchPokemonsAction());
             },
+            child: ListView.builder(
+              itemCount: vm.pokemons.length,
+              itemBuilder: (context, index) {
+                final pokemon = vm.pokemons[index];
+                return ListTile(
+                  title: Text(pokemon.name),
+                  leading: CircleAvatar(child: Text("${index + 1}")),
+                );
+              },
+            ),
           ),
         );
       },
